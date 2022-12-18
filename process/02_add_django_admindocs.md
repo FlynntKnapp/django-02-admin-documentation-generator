@@ -310,3 +310,7 @@
     * NOTE: These fields can be accessed on Django tamplates since they are attributes of the built-in `user` context object. We will explore this in the next section.
 
 1. Go back to the [`DOCUMENTATION`](http://localhost:8000/admin/doc/) section of the Django Admin Interface and explore the [`Tags`](http://localhost:8000/admin/doc/tags/) and [`Filters`](http://localhost:8000/admin/doc/filters/) links.
+
+1. Use `CTRL+C` in terminal to stop the Django development server.
+
+1. Proceed to next section.
