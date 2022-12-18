@@ -266,6 +266,6 @@
 1. Check out all the `Fields` provided by the Django default `User` model:
     * Sample browser image:
         ![Django Admin Interface](../images/django-admin-documentation-models-user-fields.png)
-    * NOTE: These fields can be accessed on Django tamplates by the `user` context object. We will explore this in the next section.
+    * NOTE: These fields can be accessed on Django tamplates since they are attributes of the `user` context object. We will explore this in the next section.
 
 1. Go back to the [`DOCUMENTATION`](http://localhost:8000/admin/doc/) section of the Django Admin Interface and explore the [`Tags`](http://localhost:8000/admin/doc/tags/) and [`Filters`](http://localhost:8000/admin/doc/filters/) links.
