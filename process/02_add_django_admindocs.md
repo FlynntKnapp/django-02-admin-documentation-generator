@@ -71,7 +71,7 @@
         PS C:\Users\FlynntKnapp\Programming\02-django-admin-documentation-generator>
         ```
 
-1. Verify `docutils` is installed. Note line with `docutils`:
+1. Verify `docutils` is installed. Note line with '`docutils`':
     * `pip list`
     * Sample console output:
 
@@ -108,6 +108,7 @@
     urlpatterns = [
         #...
         path('admin/doc/', include('django.contrib.admindocs.urls')),
+        path('admin/', admin.site.urls),
         #...
     ]
     ```
@@ -189,8 +190,10 @@
 
 1. Open the Django Admin Interface URL in a browser:
     * <http://localhost:8000/admin/>
+    * Note the URL we are directed to:
+        * <http://localhost:8000/admin/login/?next=/admin/>
     * Sample browser image:
-        ![Django Admin Interface](../images/django-admin-interface-login.png)
+        ![Django Admin Page: Login](../images/django-admin-login.png)
     * Sample console output:
 
         ```console
@@ -200,11 +203,11 @@
 
 1. Log into the Django Admin Interface using credentials created for the superuser above.
     * Sample browser image:
-        ![Django Admin Interface](../images/django-admin-interface-credentials.png)
+        ![Django Admin Page: Login with credentials](../images/django-admin-login-credentials.png)
 
 1. Click the `Log in` button.
     * Sample browser image:
-        ![Django Admin Interface](../images/django-admin-interface-logged-in.png)
+        ![Django Admin Page](../images/django-admin.png)
     * Sample console output:
 
       ```console
@@ -212,12 +215,45 @@
       [18/Dec/2022 08:05:42] "GET /admin/ HTTP/1.1" 200 3667
       ```
 
+    * Note the current URL:
+        * <http://localhost:8000/admin/>
+
 1. Explore the links provided in the `AUTHENTICATION AND AUTHORIZATION` section of the Django Admin Interface.
     * Sample browser image:
-        ![Django Admin Interface](../images/django-admin-interface-authentication-and-authorization.png)
+        ![Django Admin Page: `AUTHENTICATION AND AUTHORIZATION` section](../images/django-admin-authentication-and-authorization.png)
+
+1. Investigate the current list of `Users` in the database.
+    * <http://localhost:8000/admin/auth/user/>
+    * Sample browser image:
+        ![Django Admin Page: List of users](../images/django-admin-auth-user.png)
+    * Sample console output:
+
+        ```console
+        [18/Dec/2022 13:34:50] "GET /admin/auth/user/ HTTP/1.1" 200 7587
+        [18/Dec/2022 13:34:50] "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+        ```
+
+1. If there is already a `User`, there should be, the `User` account you are using right now.
+    * There is probably a `User` account with the following attributes:
+        * Username: `admin`
+        * Email address: `admin@email.app`
+        * ID: `1`
+    * Click the link for the `User` account '`admin`' you are using right now.
+        * Note the URL to view this user account. This is a common pattern in Django list, detail, and change views:
+            * <http://localhost:8000/admin/auth/user/1/change/>
+        * Sample browser image:
+            ![Django Admin Page: Change/edit view for user with ID of `1`](../images/django-admin-auth-user-1-change.png)
+
+1. Explore the fields/attributes of the `User` account you are using right now.
+    * Sample browser image:
+        ![Django User Model: Top of page](../images/django-admin-auth-user-admin-01.png)
+        ![Django User Model: Middle of page](../images/django-admin-auth-user-admin-02.png)
+        ![Django User Model: Bottom of page](../images/django-admin-auth-user-admin-03.png)
 
 1. Add a `User` or two to the database.
     * <http://localhost:8000/admin/auth/user/add/>
+    * Sample browser image:
+        ![Django Admin Page: User add view](../images/django-admin-auth-user-add.png)
     * Sample console output:
 
         ```console
@@ -227,9 +263,11 @@
 
 1. Explore the links provided in the [`DOCUMENTATION`](http://localhost:8000/admin/doc/) section of the Django Admin Interface.
     * Sample browser image:
-        ![Django Admin Documentation Link](../images/django-admin-documentation-link.png)
+        ![Django Admin Documentation Page: Link](../images/django-admin-doc-link.png)
     * Sample browser image:
-        ![Django Admin Interface](../images/django-admin-documentation.png)
+        ![Django Admin Documentation Page](../images/django-admin-doc.png)
+    * Note the URL:
+        * <http://localhost:8000/admin/doc/>
     * Sample console output:
 
         ```console
@@ -239,33 +277,30 @@
 1. Explore the links provided by the [`Models`](http://localhost:8000/admin/doc/models/) link:
     * Sample browser image:
         ![Django Admin Interface](../images/django-admin-documentation-models.png)
+    * Note the URL:
+        * <http://localhost:8000/admin/doc/models/>
     * Sample console output:
 
         ```console
         [18/Dec/2022 13:37:02] "GET /admin/doc/models/ HTTP/1.1" 200 4850
         ```
 
+1. Note the links provided for related models. [`auth.Group`](http://localhost:8000/admin/doc/models/auth.group/):
+    * Sample browser image:
+        ![Django Admin Interface](../images/django-admin-documentation-models-user-related-models-group.png)
+
 1. Explore the link for the [`User`](http://localhost:8000/admin/doc/models/auth.user/) model of the `Authentication and Authorization` `django.contrib.auth` application:
     * Sample browser image:
-        ![Django Admin Interface](../images/django-admin-documentation-models-user-link.png)
+        ![Django Admin Interface](../images/django-admin-doc-models-auth-user-link.png)
     * Sample console output:
 
         ```console
         [18/Dec/2022 13:37:17] "GET /admin/doc/models/auth.user/ HTTP/1.1" 200 6607
         ```
 
-1. Note the links provided for related models. [`auth.Group`](http://localhost:8000/admin/doc/models/auth.group/):
-    * Sample browser image:
-        ![Django Admin Interface](../images/django-admin-documentation-models-user-related-models-group.png)
-    * Sample console output:
-
-        ```console
-        [18/Dec/2022 13:40:37] "GET /admin/doc/models/auth.group/ HTTP/1.1" 200 5681
-        ```
-
 1. Check out all the `Fields` provided by the Django default `User` model:
     * Sample browser image:
-        ![Django Admin Interface](../images/django-admin-documentation-models-user-fields.png)
-    * NOTE: These fields can be accessed on Django tamplates since they are attributes of the `user` context object. We will explore this in the next section.
+        ![Django Admin Interface](../images/django-admin-doc-models-auth-user-fields.png)
+    * NOTE: These fields can be accessed on Django tamplates since they are attributes of the built-in `user` context object. We will explore this in the next section.
 
 1. Go back to the [`DOCUMENTATION`](http://localhost:8000/admin/doc/) section of the Django Admin Interface and explore the [`Tags`](http://localhost:8000/admin/doc/tags/) and [`Filters`](http://localhost:8000/admin/doc/filters/) links.
