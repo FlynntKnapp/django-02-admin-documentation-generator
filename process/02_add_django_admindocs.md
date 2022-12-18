@@ -222,8 +222,13 @@
     * Sample browser image:
         ![Django Admin Page: `AUTHENTICATION AND AUTHORIZATION` section](../images/django-admin-authentication-and-authorization.png)
 
+1. Use the `Users` link to navigate to the current list of `Users` page.
+    * Sample browser image:
+        ![Django Admin Page: `Users` page](../images/django-admin-users-link.png)
+
 1. Investigate the current list of `Users` in the database.
-    * <http://localhost:8000/admin/auth/user/>
+    * Note the current URL:
+        * <http://localhost:8000/admin/auth/user/>
     * Sample browser image:
         ![Django Admin Page: List of users](../images/django-admin-auth-user.png)
     * Sample console output:
@@ -245,13 +250,14 @@
             ![Django Admin Page: Change/edit view for user with ID of `1`](../images/django-admin-auth-user-1-change.png)
 
 1. Explore the fields/attributes of the `User` account you are using right now.
-    * Sample browser image:
+    * Sample browser images:
         ![Django User Model: Top of page](../images/django-admin-auth-user-admin-01.png)
         ![Django User Model: Middle of page](../images/django-admin-auth-user-admin-02.png)
         ![Django User Model: Bottom of page](../images/django-admin-auth-user-admin-03.png)
 
 1. Add a `User` or two to the database.
-    * <http://localhost:8000/admin/auth/user/add/>
+    * Note the current URL:
+        * <http://localhost:8000/admin/auth/user/add/>
     * Sample browser image:
         ![Django Admin Page: User add view](../images/django-admin-auth-user-add.png)
     * Sample console output:
