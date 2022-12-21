@@ -233,7 +233,9 @@
     1. `exit`
         * Exits the virtual environment.
 
-1. We will add the [Django Documentation Generator](https://docs.djangoproject.com/en/4.1/ref/contrib/admin/admindocs/#module-django.contrib.admindocs) in the next section. This will allow us to generate documentation for our project and view existing documentation provided by Django.
+1. Continue on to [Add Django AdminDocs (`django.contrib.admindocs`) Application](./02_add_django_admindocs.md).
+
+    * We will add the [Django Documentation Generator](https://docs.djangoproject.com/en/4.1/ref/contrib/admin/admindocs/#module-django.contrib.admindocs) in the next section. This will allow us to generate documentation for our project and view existing documentation provided by Django.
 
 ## Repository Links
 
