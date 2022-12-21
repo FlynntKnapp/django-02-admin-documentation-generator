@@ -1,59 +1,69 @@
 # Add Django AdminDocs (`django.contrib.admindocs`) Application
 
-1. Start in root directory of project (the directory that will contain all of project code and our `manage.py`) and `Pipfile` and `Pipfile.lock` are in our current directory:
-    * `pwd`
+1. Start in root directory of project:
+    * `Get-Location`
     * My sample directory:
 
         ```console
-        PS C:\Users\FlynntKnapp\Programming\02-django-admin-documentation-generator> pwd
+        PS C:\Users\FlynntKnapp\Programming\django-admin-documentation-generator> Get-Location
 
         Path
         ----
-        C:\Users\FlynntKnapp\Programming\02-django-admin-documentation-generator
+        C:\Users\FlynntKnapp\Programming\django-admin-documentation-generator
 
-        PS C:\Users\FlynntKnapp\Programming\02-django-admin-documentation-generator>
+        PS C:\Users\FlynntKnapp\Programming\django-admin-documentation-generator>
         ```
 
-    * `ls`
+1. Get contents of project root directory:
+    * `Get-ChildItem`
+    * The `db.sqlite3` file was created when we first ran the server with `python manage.py runserver`.
     * My sample directory contents:
 
         ```console
-        PS C:\Users\FlynntKnapp\Programming\02-django-admin-documentation-generator> ls
+        PS C:\Users\FlynntKnapp\Programming\django-admin-documentation-generator> Get-ChildItem
 
-            Directory: C:\Users\FlynntKnapp\Programming\02-django-admin-documentation-generator
+            Directory: C:\Users\FlynntKnapp\Programming\django-admin-documentation-generator
 
         Mode                 LastWriteTime         Length Name
         ----                 -------------         ------ ----
-        d----          12/18/2022 11:18 AM                config
-        d----          12/18/2022 10:02 AM                images
-        d----          12/18/2022 10:02 AM                notes
-        d----          12/18/2022 11:13 AM                process
-        -a---          12/17/2022 10:16 PM           7739 .gitignore
-        -a---          12/18/2022 11:19 AM              0 db.sqlite3
-        -a---          12/18/2022 11:18 AM            684 manage.py
-        -a---          12/18/2022 11:16 AM            176 Pipfile
-        -a---          12/18/2022 11:16 AM           2089 Pipfile.lock
-        -a---          12/18/2022 11:25 AM            147 README.md
+        d----          12/20/2022  7:17 PM                config
+        -a---          12/18/2022 10:22 AM           7771 .gitignore
+        -a---          12/20/2022  7:24 PM              0 db.sqlite3
+        -a---          12/20/2022  7:17 PM            684 manage.py
+        -a---          12/20/2022  7:05 PM            156 Pipfile
+        -a---          12/20/2022  7:05 PM           1775 Pipfile.lock
+        -a---          12/20/2022  6:56 PM            292 README.md
 
-        PS C:\Users\FlynntKnapp\Programming\02-django-admin-documentation-generator>
+        PS C:\Users\FlynntKnapp\Programming\django-admin-documentation-generator>
         ```
 
-1. Verify `docutils` is not installed:
+1. Activate virtual environment:
+    * `pipenv shell`
+    * Sample console output:
+
+        ```console
+        PS C:\Users\FlynntKnapp\Programming\django-admin-documentation-generator> pipenv shell
+        Launching subshell in virtual environment...
+        PowerShell 7.3.1
+        PS C:\Users\FlynntKnapp\Programming\django-admin-documentation-generator>
+        ```
+
+1. Verify `docutils` is not yet installed:
     * `pip list`
     * Sample console output:
 
         ```console
-        PS C:\Users\FlynntKnapp\Programming\02-django-admin-documentation-generator> pip list
+        PS C:\Users\FlynntKnapp\Programming\django-admin-documentation-generator> pip list
         Package    Version
         ---------- -------
-        asgiref    3.5.2
+        asgiref    3.6.0
         Django     4.1
         pip        22.3.1
         setuptools 65.6.3
         sqlparse   0.4.3
         tzdata     2022.7
         wheel      0.38.4
-        PS C:\Users\FlynntKnapp\Programming\02-django-admin-documentation-generator>
+        PS C:\Users\FlynntKnapp\Programming\django-admin-documentation-generator>
         ```
 
 1. Install 'docutils' so we can use Django Admin Documentation:
@@ -61,14 +71,14 @@
     * Sample console output:
 
         ```console
-        PS C:\Users\FlynntKnapp\Programming\02-django-admin-documentation-generator> pipenv install docutils==0.19
+        PS C:\Users\FlynntKnapp\Programming\django-admin-documentation-generator> pipenv install docutils==0.19
         Installing docutils==0.19...
         Pipfile.lock (c21913) out of date, updating to (c92a4c)...
         Locking [packages] dependencies...
         Locking [dev-packages] dependencies...
         Updated Pipfile.lock (ad87035279ad7566fef0860964cc374ccfb9336924ab64f936c86c7a98c92a4c)!
         Installing dependencies from Pipfile.lock (c92a4c)...
-        PS C:\Users\FlynntKnapp\Programming\02-django-admin-documentation-generator>
+        PS C:\Users\FlynntKnapp\Programming\django-admin-documentation-generator>
         ```
 
 1. Verify `docutils` is installed. Note line with '`docutils`':
@@ -76,10 +86,10 @@
     * Sample console output:
 
         ```console
-        PS C:\Users\FlynntKnapp\Programming\02-django-admin-documentation-generator> pip list
+        PS C:\Users\FlynntKnapp\Programming\django-admin-documentation-generator> pip list
         Package    Version
         ---------- -------
-        asgiref    3.5.2
+        asgiref    3.6.0
         Django     4.1
         docutils   0.19
         pip        22.3.1
@@ -87,7 +97,7 @@
         sqlparse   0.4.3
         tzdata     2022.7
         wheel      0.38.4
-        PS C:\Users\FlynntKnapp\Programming\02-django-admin-documentation-generator>
+        PS C:\Users\FlynntKnapp\Programming\django-admin-documentation-generator>
         ```
 
 1. Add `django.contrib`'s `admindocs` app to `INSTALLED_APPS` list in [`config/settings.py`](../config/settings.py):
@@ -124,10 +134,11 @@
         ```
 
 1. Create the database by using `migrate`. This will allow us to create a superuser in next step and access Django Admin Interface and Django Admin Documentation:
+    * There are several default 'migrations' that Django performs. We will explore these concepts in a later section.
     * `python manage.py migrate`
 
         ```console
-        PS C:\Users\FlynntKnapp\Programming\02-django-admin-documentation-generator> python manage.py migrate
+        PS C:\Users\FlynntKnapp\Programming\django-admin-documentation-generator> python manage.py migrate
         Operations to perform:
           Apply all migrations: admin, auth, contenttypes, sessions
         Running migrations:
@@ -149,7 +160,7 @@
           Applying auth.0011_update_proxy_permissions... OK
           Applying auth.0012_alter_user_first_name_max_length... OK
           Applying sessions.0001_initial... OK
-        PS C:\Users\FlynntKnapp\Programming\02-django-admin-documentation-generator>
+        PS C:\Users\FlynntKnapp\Programming\django-admin-documentation-generator>
         ```
 
 1. Create a superuser so we can log into Django Admin Interface and access Django Admin Documentation:
@@ -160,16 +171,20 @@
 
     IMPORTANT: Never use weak passwords for an application in production.
 
+    IMPORTANT: We are only using `admin` here since the database is on our development system and will not contain actual data from the application.
+
+    IMPORTANT: We are only using a weak password here since the database is on our development system and will not contain actual data from the application.
+
     * `python manage.py createsuperuser --email admin@email.app --username admin`
 
         ```console
-        PS C:\Users\FlynntKnapp\Programming\02-django-admin-documentation-generator> python manage.py createsuperuser --email admin@email.app --username admin
-        Password: 
-        Password (again): 
+        PS C:\Users\FlynntKnapp\Programming\django-admin-documentation-generator> python manage.py createsuperuser --email admin@email.app --username admin
+        Password:
+        Password (again):
         This password is too common.
         Bypass password validation and create user anyway? [y/N]: y
         Superuser created successfully.
-        PS C:\Users\FlynntKnapp\Programming\02-django-admin-documentation-generator>
+        PS C:\Users\FlynntKnapp\Programming\django-admin-documentation-generator>
         ```
 
 1. Start the development server:
@@ -177,12 +192,12 @@
     * Sample console output:
 
         ```console
-        PS C:\Users\FlynntKnapp\Programming\02-django-admin-documentation-generator> python manage.py runserver
+        PS C:\Users\FlynntKnapp\Programming\django-admin-documentation-generator> python manage.py runserver
         Watching for file changes with StatReloader
         Performing system checks...
 
         System check identified no issues (0 silenced).
-        December 18, 2022 - 13:05:32
+        December 20, 2022 - 20:08:00
         Django version 4.1, using settings 'config.settings'
         Starting development server at http://127.0.0.1:8000/
         Quit the server with CTRL-BREAK.
@@ -190,8 +205,9 @@
 
 1. Open the Django Admin Interface URL in a browser:
     * <http://localhost:8000/admin/>
-    * Note the URL we are directed to:
+    * Note the URL we are redirected to:
         * <http://localhost:8000/admin/login/?next=/admin/>
+        * This URL will allow us to log in and then redirect us to the Django Admin Interface URL.
     * Sample browser image:
         ![Django Admin Page: Login](../images/django-admin-login.png)
     * Sample console output:
@@ -205,7 +221,11 @@
     * Sample browser image:
         ![Django Admin Page: Login with credentials](../images/django-admin-login-credentials.png)
 
-1. Click the `Log in` button.
+1. Click the `Log in` button:
+    * We are logged in through a view associated with the `login` URL:
+        * <http://localhost:8000/admin/login/>
+    * Then we are redirected to parameter included in the `next` part (`?next=/admin/`) of the original URL:
+        * <http://localhost:8000/admin/>
     * Sample browser image:
         ![Django Admin Page](../images/django-admin.png)
     * Sample console output:
@@ -239,7 +259,7 @@
         ```
 
 1. If there is already a `User`, there should be, the `User` account you are using right now.
-    * There is probably a `User` account with the following attributes:
+    * There is probably a `User` account (if you used the provided `createsuperuser` command above) with the following attributes:
         * Username: `admin`
         * Email address: `admin@email.app`
         * ID: `1`
@@ -282,7 +302,7 @@
 
 1. Explore the links provided by the [`Models`](http://localhost:8000/admin/doc/models/) link:
     * Sample browser image:
-        ![Django Admin Interface](../images/django-admin-documentation-models.png)
+        ![Django Admin Interface](../images/django-admin-doc-models.png)
     * Note the URL:
         * <http://localhost:8000/admin/doc/models/>
     * Sample console output:
@@ -291,11 +311,7 @@
         [18/Dec/2022 13:37:02] "GET /admin/doc/models/ HTTP/1.1" 200 4850
         ```
 
-1. Note the links provided for related models. [`auth.Group`](http://localhost:8000/admin/doc/models/auth.group/):
-    * Sample browser image:
-        ![Django Admin Interface](../images/django-admin-documentation-models-user-related-models-group.png)
-
-1. Explore the link for the [`User`](http://localhost:8000/admin/doc/models/auth.user/) model of the `Authentication and Authorization` `django.contrib.auth` application:
+1. Explore the link for the [`User`](http://localhost:8000/admin/doc/models/auth.user/) model of the `Authentication and Authorization (django.contrib.auth)` application:
     * Sample browser image:
         ![Django Admin Interface](../images/django-admin-doc-models-auth-user-link.png)
     * Sample console output:
@@ -308,6 +324,18 @@
     * Sample browser image:
         ![Django Admin Interface](../images/django-admin-doc-models-auth-user-fields.png)
     * NOTE: These fields can be accessed on Django tamplates since they are attributes of the built-in `user` context object. We will explore this in the next section.
+
+1. Note the links provided for related models. [`auth.Group`](http://localhost:8000/admin/doc/models/auth.group/):
+    * Sample browser image:
+        ![Django Admin Interface](../images/django-admin-doc-models-auth-user-group-link.png)
+
+1. Explore the [`auth.Group`](http://localhost:8000/admin/doc/models/auth.group/) model:
+    * Sample browser image:
+        ![Django Admin Interface](../images/django-admin-doc-models-auth-user-group-link.png)
+
+1. Note the links provided for related models. [`auth.User`](http://localhost:8000/admin/doc/models/auth.user/):
+    * Sample browser image:
+        ![Django Admin Interface](../images/django-admin-doc-models-auth-group-user-link.png)
 
 1. Go back to the [`DOCUMENTATION`](http://localhost:8000/admin/doc/) section of the Django Admin Interface and explore the [`Tags`](http://localhost:8000/admin/doc/tags/) and [`Filters`](http://localhost:8000/admin/doc/filters/) links.
 
